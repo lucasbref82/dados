@@ -1,19 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:ieap_front/text_style_widget.dart';
+
 class GradientContainer extends StatelessWidget {
-  const GradientContainer({super.key});
+  GradientContainer(this.colors, {super.key});
+
+  GradientContainer.purple({super.key})
+    : colors = [Colors.deepPurple, Colors.indigo];
+
+  final List<Color> colors;
+
+  String activeImageDice = 'assets/images/dice-1.png';
+
+  void rollDice() {
+    activeImageDice = 'assets/images/dice-2.png';
+    print('Actived image: ' + activeImageDice);
+  }
 
   @override
   Widget build(context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.lightGreen, Colors.deepPurple],
+          colors: colors,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
       ),
-      child: Center(child: TextStyleWidget()),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              activeImageDice,
+              width: 200,
+            ),
+            SizedBox(
+              height: 20
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28
+                ),
+              ),
+              onPressed: rollDice, 
+              child: const Text('Rool Dice'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+  
